@@ -11,6 +11,8 @@ class App extends React.Component {
       url1: "https://cataas.com/api/cats?tags=",
       num:0,
       length:0,
+      says:'',
+      text:'',
       items:[
         {
           id:null,
@@ -65,6 +67,11 @@ class App extends React.Component {
     console.log(this.state.items.length)
   }
 
+  allButton() {
+    this.setState({url : this.state.url1,num:0})
+    console.log(this.state.items.length)
+  }
+
   randomButton() {
     var random = Math.floor(Math.random() * this.state.items.length )
     this.setState({num:random})
@@ -76,20 +83,36 @@ class App extends React.Component {
     console.log(value)
   }
 
+  saystext(event){
+   const value = event.target.value
+    this.setState({text:value})
+  }
+
+  saysButton() {
+    if (this.state.text !=='') {
+      this.setState({says:'/says/' + this.state.text})
+    } 
+   console.log(this.state.says)
+  }
+
 
     
   render () {
       const catid = []
       this.state.items.map(v => catid.push(v.id))
       const num = catid.length-1
+    console.log(this.state.url)
     return (
       <>
       <div>
       <h1>君の好きな猫は??</h1>
-        <NumCounter num={this.state.num} itemsnum={num}/>
+       <NumCounter num={this.state.num} itemsnum={num}/>
       <NumSetter onChange={this.numcounter.bind(this)} num={this.state.num} items={this.state.items}/>
       <RandomButton onClick={this.randomButton.bind(this)}/>
       <ul>
+      <li>
+        <All onClick={this.allButton.bind(this)} />
+      </li>
       <li>
         <GifButton  onClick={this.gifButton.bind(this)} />
       </li>
@@ -106,16 +129,53 @@ class App extends React.Component {
         <JumpButton  onClick={this.jumpButton.bind(this)} />
       </li>
       </ul>
-        <CatViwe items={catid} caturl={this.state.caturl} num={this.state.num}/>
+        <CatViwe says={this.state.says} items={catid} caturl={this.state.caturl} num={this.state.num}/>
+      <br />
+      <h2>写真に文字を追加</h2>
+      <Says text={this.state.text} onChange={this.saystext.bind(this)} />
+      <SaysButton onClick={this.saysButton.bind(this)}/>
+       
       </div>
       </>
     )
   }
 }
 
+const Says = props => {
+  return (
+    <input style={{width: '150px'}} 
+    type="text" value={props.text} 
+    onChange={props.onChange} />
+  )
+}
+
+const SaysButton = props => {
+  return (
+  <Button 
+    onClick={props.onClick}>
+    submit
+    </Button>
+  )
+}
+
+
+const All = props => {
+  return (
+    <Button 
+    onClick={props.onClick}
+    color='primary'
+    variant='outlined'>
+    すべての写真
+    </Button>
+  )
+}
+
 const NumSetter = props => {
   return (
-    <input style={{width: '150px'}} type="number" value={props.num} onChange={props.onChange} min="0" max={props.items.length -1}/>
+    <input style={{width: '150px'}} 
+    type="number" value={props.num} 
+    onChange={props.onChange} 
+    min="0" max={props.items.length -1}/>
   )
 }
 
@@ -161,11 +221,12 @@ const CatButton = props => {
 const CatViwe = props => {
   const items = props.items
   const caturl = props.caturl
+  const says = props.says
   const num = props.num
   console.log()
   return (
     <>
-    <img src={caturl + items[num]} alt="not find" />
+    <img src={caturl + items[num] + says} alt="not find" />
     </>
   )
 }
