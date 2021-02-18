@@ -1,3 +1,4 @@
+
 .App {
   text-align: center;
 }
@@ -47,5 +48,24 @@ li {
 
 div {
     text-align:center;
+    background-color: #ffeeff;
+    margin:0 100px ;
+    padding: 0 0 200px 0;
 }
 
+header {
+    padding: 10px;
+    margin: 0 200px;
+    border-radius: 8px;
+}
+
+h1 {
+    font-size: 50px; 
+    color:#ff99ff;
+    width: auto;
+  text-shadow:1px 1px 0 #000, -1px -1px 0 #000,
+              -1px 1px 0 #000, 1px -1px 0 #000,
+              0px 1px 0 #000,  0-1px 0 #000,
+              -1px 0 0 #000, 1px 0 0 #000;
+
+}

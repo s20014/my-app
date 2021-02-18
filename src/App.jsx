@@ -2,6 +2,7 @@ import React from 'react'
 import './App.css'
 import {Button} from '@material-ui/core'
 
+
 class App extends React.Component {
   constructor (props) {
     super(props)
@@ -104,8 +105,10 @@ class App extends React.Component {
     console.log(this.state.url)
     return (
       <>
-      <div>
+      <header> 
       <h1>君の好きな猫は??</h1>
+      </header>
+      <div>
        <NumCounter num={this.state.num} itemsnum={num}/>
       <NumSetter onChange={this.numcounter.bind(this)} num={this.state.num} items={this.state.items}/>
       <RandomButton onClick={this.randomButton.bind(this)}/>
